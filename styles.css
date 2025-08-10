@@ -1,0 +1,256 @@
+/* === Retro PS2 Alien Sci-Fi Theme v2 === */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap');
+
+:root {
+    --primary-bg-color: #0a0a1a; /* Cosmic dark */
+    --text-color: #66ffcc; /* Alien mint */
+    --header-color: #ffffff; /* PS2 pink */
+    --neon-glow: #ce3bce; /* Alien glow pink */
+    --product-border-color: #00f0ff;
+    --scanline-color: rgba(255, 255, 255, 0.02);
+
+    /* Colors for the color selector */
+    --color-blue: #00aaff;
+    --color-green: #33ff77;
+    --color-pink: #ff33cc;
+}
+
+/* Background Video */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+   object-fit: contain;
+background-color: black; 
+    z-index: -2;
+    filter: brightness(0.5) contrast(1.3);
+}
+
+/* Subtle CRT Scanlines */
+body::before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        var(--scanline-color) 3px
+    );
+    pointer-events: none;
+}
+
+/* Base Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
+    font-size: 18px;
+    text-align: center;
+}
+
+/* ✨ Neon Glow Animation */
+@keyframes neonPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 3px var(--neon-glow),
+            0 0 8px var(--neon-glow),
+            0 0 16px var(--neon-glow),
+            0 0 24px var(--neon-glow);
+    }
+    50% {
+        text-shadow:
+            0 0 6px var(--neon-glow),
+            0 0 14px var(--neon-glow),
+            0 0 28px var(--neon-glow),
+            0 0 40px var(--neon-glow);
+    }
+}
+
+/* Headers */
+header {
+    font-size: 48px;
+    color: var(--header-color);
+    animation: neonPulse 2s infinite alternate;
+    margin: 60px 0 40px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+/* Product Grid */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+/* Product Items */
+.product {
+    text-align: center;
+    max-width: 320px;
+    padding: 15px;
+    border: 2px dashed var(--product-border-color);
+    border-radius: 18px;
+    transition: transform 0.3s ease, border 0.3s ease;
+    background-color: rgba(0,0,0,0.5); /* subtle transparent bg for clarity */
+}
+
+.product:hover {
+    transform: scale(1.06);
+    border-color: var(--neon-glow);
+    box-shadow: 0 0 20px var(--neon-glow);
+}
+
+.product img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover; /* NEW: keep the image scaled proportionally */
+    border-radius: 10px;
+    filter: drop-shadow(0 0 10px var(--neon-glow));
+    transition: transform 0.3s ease;
+}
+
+.product img:hover {
+    transform: scale(1.1);
+    cursor: zoom-in;
+}
+
+/* Image Captions */
+.image p {
+    font-size: 16px;
+    margin-top: 10px;
+    color: var(--text-color);
+}
+
+/* Size and Color Selector containers */
+form select,
+.size-select {
+    font-size: 18px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--neon-glow);
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    width: 60%;
+    max-width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px; /* Added spacing below dropdown for all selects */
+}
+
+form select:focus,
+.size-select:focus {
+    outline: none;
+    border-color: #fff;
+    box-shadow: 0 0 10px var(--neon-glow);
+}
+
+/* Buy Button */
+form input[type="image"] {
+    width: 200px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--neon-glow);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+form input[type="image"]:hover {
+    box-shadow: 0 0 30px var(--neon-glow), 0 0 40px var(--neon-glow);
+}
+
+/* Footer */
+footer {
+    margin-top: 60px;
+    font-size: 18px;
+    color: var(--text-color);
+    text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-glow);
+    padding: 20px;
+}
+
+/* Modal Styling (kept as is) */
+#image-modal,
+#product-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 25, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-image,
+#product-lightbox img {
+    max-width: 80%;
+    height: auto;
+}
+
+#close-modal,
+#product-lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .products {
+      flex-direction: column;
+      gap: 30px;
+      padding: 40px 10px;
+    }
+  
+    .product {
+      max-width: 90vw;
+      margin: 0 auto;
+      padding: 15px;
+    }
+  
+    header h1 {
+      font-size: 36px;
+    }
+  
+    header h2 {
+      font-size: 16px;
+    }
+  
+    body {
+      font-size: 16px;
+    }
+  
+    form select,
+    .size-select {
+      font-size: 16px;
+      padding: 8px;
+      width: 90%;
+      max-width: none;
+      margin-bottom: 20px; /* keep spacing consistent on mobile */
+    }
+  
+    form input[type="image"] {
+      width: 90%;
+      max-width: 250px;
+    }
+}
